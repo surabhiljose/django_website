@@ -1,0 +1,43 @@
+<style>
+div.gallery {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+}
+
+div.gallery:hover {
+    border: 1px solid #777;
+}
+
+div.gallery img {
+    width: 100%;
+    height: auto;
+}
+
+div.desc {
+    padding: 15px;
+    text-align: center;
+}
+</style>
+
+
+
+
+{% extends 'product/base.html'%}
+
+{% block body%}
+    {% if object_list %}
+        <h3>Products</h3>
+            {% for product in object_list %}
+                <<a href = "{% url 'contact:productpage' product.id%}">
+                    <div class="gallery">
+                        <img src="{{product.productLogo}}" width="300" height="200">
+                        <div class="desc">{{product.productName}}</div>
+                    </div>
+                </a>
+            {% endfor %}
+    {% else %}
+        <h3> Add your first product.</h3>
+    {% endif %}
+{%endblock%}

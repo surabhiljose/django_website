@@ -1,0 +1,25 @@
+{% extends 'product/base.html'%}
+{% block title%}Product Details{%endblock%}
+{% block body%}
+    <img src="{{ product.productLogo}}">
+    <h1>{{product.productName}}</h1>
+
+    {%if error_message %}
+        <p><strong>{{error_message}}</strong></p>
+    {% endif %}
+
+
+    <form action="{%url 'contact:purchase' product.id%}" method="post">
+        {% csrf_token %}
+        {% for version in product.versions_set.all %}
+            <input type="radio" id="version{{forloop.counter }}" name="version" value="{{version.id}}">
+            <label for="version{{forloop.counter }}">
+                {{ version.versionName}}
+                {%if version.is_purchased %}
+                    <img src="http://www.webpvc.ro/images/top_shopcart.gif">
+                {% endif %}
+            </label><br>
+        {% endfor %}
+        <input type="submit" value="Add">
+    </form>
+{%endblock%}
